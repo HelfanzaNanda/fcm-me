@@ -24,7 +24,7 @@ class ApiController extends Controller
 			'status' => true,
 			'message' => 'success',
 			'error' => [],
-			'data' => []
+			'data' => (object)[]
 		]);
 	}
 
@@ -58,7 +58,7 @@ class ApiController extends Controller
 			'status' => true,
 			'message' => 'success',
 			'error' => [],
-			'data' => []
+			'data' => (object)[]
 		]);
 	}
 
