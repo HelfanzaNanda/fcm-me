@@ -13,10 +13,10 @@ class ApiController extends Controller
     public function createToken(Request $request)
 	{
 		$fcm = $request->fcm_token;
-		$model = Fcm::where('fcm', $fcm)->first();
+		$model = Fcm::where('fcm_token', $fcm)->first();
 		if (!$model) {
 			Fcm::create([
-				'fcm' => $fcm
+				'fcm_token' => $fcm
 			]);
 		}
 
@@ -32,7 +32,7 @@ class ApiController extends Controller
 	public function sendNotif(Request $request)
 	{
 		$fcm = $request->fcm_token;
-		$tokens = Fcm::where('fcm', '!=', $fcm)->get()->pluck('fcm_token')->toArray();
+		$tokens = Fcm::where('fcm_token', '!=', $fcm)->get()->pluck('fcm_token')->toArray();
 
 		$message = 'Bahaya';
 		$optionBuilder = new OptionsBuilder();
@@ -48,7 +48,7 @@ class ApiController extends Controller
         
         LaravelFCM::sendTo($tokens, $option, $notification, $data);
 
-		$fcm = Fcm::where('fcm', $fcm)->first();
+		$fcm = Fcm::where('fcm_token', $fcm)->first();
 		Notification::create([
 			'fcm_id' => $fcm->id,
 			'body' => '#'.$fcm->fcm_token . ' Menekan Tombol Bahay'
